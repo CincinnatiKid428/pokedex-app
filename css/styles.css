@@ -3,6 +3,7 @@
   }
 
   body {
+    font-family: 'Montserrat', sans-serif; /*Font from Google APIs*/
     font-weight: 400px;
-    font-family: 'Montserrat', sans-serif;
+    margin-left: 10px;
   }
