@@ -43,3 +43,27 @@ pokemonList[4] = {
     types: ['grass'],
     nextEvolution: 'Breloom'
 };
+
+let tallHeight = 0.7;
+
+/* For each Pokemon in the pokemonList array ... */
+for (let i=0; i < pokemonList.length; i++) {
+
+    // Print to html page in <p></p> tags the number, name, type and height of each Pokemon in the array
+    document.write(
+        '<p>#' + pokemonList[i].number 
+        +' '+ pokemonList[i].name 
+        +' (Type: ' + pokemonList[i].types +')'
+        +' (Height: ' + pokemonList[i].height +'m)'
+    );
+    
+    // If the Pokemon's height is over 0.7, add additional flavor text
+    if(pokemonList[i].height > tallHeight) {
+        document.write(' - Wow, that\'s big!');
+    }
+
+    // Closing paragraph tag
+    document.write('</p>');
+
+}; //end for loop
+    
