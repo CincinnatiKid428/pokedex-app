@@ -1,55 +1,87 @@
-/* Pokemon list array containing pokemon objects, each containing 
+/* Create IIFE to declare the pokemonList[] and return access to functions */
+let pokemonRepository = (function(){
+
+    /* Pokemon list array containing pokemon objects, each containing 
     information to display */
+    let pokemonList = []; 
 
-let pokemonList = []; 
+    // Function to add a pokemon to the end of the list
+    function add(item) {
+        pokemonList.push(item);
+    }
 
-// Adding 5 pokemon objects
-pokemonList[0] = {
-    name:'Charmander',
-    number: 4,
-    height: 0.6,
-    types: ['fire'],
-    nextEvolution: 'Charmeleon'
-};
+    // Function to return the pokemonList
+    function getAll(){
+        return pokemonList;
+    }
 
-pokemonList[1] = {
-    name:'Aron',
-    number: 304,
-    height: 0.4, 
-    types: ['steel','rock'],
-    nextEvolution: 'Lairon'
-};
+    // Build thevinitial pokemonList with the 5 pokemon:
+    pokemonList.push( 
+        {
+            name:'Charmander',
+            number: 4,
+            height: 0.6,
+            types: ['fire'],
+            nextEvolution: 'Charmeleon'
+        }
+    );
 
-pokemonList[2] = {
-    name:'Blitzle',
-    number: 522,
-    height: 0.8,
-    types: ['electric'],
-    nextEvolution: 'Zebstrika'
-};
+    pokemonList.push(
+        {
+            name:'Aron',
+            number: 304,
+            height: 0.4, 
+            types: ['steel','rock'],
+            nextEvolution: 'Lairon'
+        }
+    );
 
-pokemonList[3] = {
-    name:'Minccino',
-    number: 572,
-    height: 0.4,
-    types: ['normal'],
-    nextEvolution: 'Cinccino'
-};
+    pokemonList.push(
+        {
+            name:'Blitzle',
+            number: 522,
+            height: 0.8,
+            types: ['electric'],
+            nextEvolution: 'Zebstrika'
+        }
+    );
 
-pokemonList[4] = {
-    name:'Shroomish',
-    number: 285,
-    height: 0.4,
-    types: ['grass'],
-    nextEvolution: 'Breloom'
-};
+    pokemonList.push(
+        {
+            name:'Minccino',
+            number: 572,
+            height: 0.4,
+            types: ['normal'],
+            nextEvolution: 'Cinccino'
+        }
+    );
+
+    pokemonList.push(
+        {
+            name:'Shroomish',
+            number: 285,
+            height: 0.4,
+            types: ['grass'],
+            nextEvolution: 'Breloom'
+        }
+    );
+
+    // Return object with references to the functions add() & getAll()
+    return {
+        add:add,
+        getAll:getAll
+    };
+})();
+
+
 
 let tallHeight = 0.7;
 
 /* forEach Pokemon in the pokemonList array ... */
-//for (let i=0; i < pokemonList.length; i++) {
 
-pokemonList.forEach(function(currentPokemon) {
+//console.log('* * Checking what value is in pokemonRepository = ' + pokemonRepository.getAll());
+
+pokemonRepository.getAll().forEach(function(currentPokemon) {
 
     // Print to html page in <p></p> tags the number, name, type and height of each Pokemon in the array
     document.write(
