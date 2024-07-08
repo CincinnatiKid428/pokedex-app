@@ -46,24 +46,25 @@ pokemonList[4] = {
 
 let tallHeight = 0.7;
 
-/* For each Pokemon in the pokemonList array ... */
-for (let i=0; i < pokemonList.length; i++) {
+/* forEach Pokemon in the pokemonList array ... */
+//for (let i=0; i < pokemonList.length; i++) {
+
+pokemonList.forEach(function(currentPokemon) {
 
     // Print to html page in <p></p> tags the number, name, type and height of each Pokemon in the array
     document.write(
-        '<p>#' + pokemonList[i].number 
-        +' '+ pokemonList[i].name 
-        +' (Type: ' + pokemonList[i].types +')'
-        +' (Height: ' + pokemonList[i].height +'m)'
+        '<p>#' + currentPokemon.number 
+        +' '+ currentPokemon.name 
+        +' (Type: ' + currentPokemon.types +')'
+        +' (Height: ' + currentPokemon.height +'m)'
     );
     
     // If the Pokemon's height is over 0.7, add additional flavor text
-    if(pokemonList[i].height > tallHeight) {
+    if(currentPokemon.height > tallHeight) {
         document.write(' - Wow, that\'s big!');
     }
 
     // Closing paragraph tag
     document.write('</p>');
 
-}; //end for loop
-    
+}); //end forEach loop
