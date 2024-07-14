@@ -7,3 +7,51 @@
     font-weight: 400;
     margin-left: 10px;
   }
+
+  .pokemon-list {
+    list-style-type: none;
+  }
+
+  .pokemon-button {
+    font-family: inherit;
+    height: 50px;
+    width: 300px;
+    margin: 5px;
+    background-color:#fdde77;
+    border-radius: 5px;
+    border-width: 0;
+    box-shadow: 10px solid #0000007a;
+    color: #000;
+  }
+
+  .pokemon-button:hover {
+    background-color: #ffc400;
+    font-weight: 600;
+  }
+
+/* ---------------Responsive Design Section--------------- */
+
+/* For screens up to 500 pixel width (smart phones & tablets) */
+
+@media all and (max-width: 500px) {
+  .pokemon-button {
+    height: 40px;
+    width: 200px;
+  }
+}
+
+@media all and (min-width: 500px) and (max-width: 750px) {
+  .pokemon-button {
+    height: 45px;
+    width: 250px;
+  }
+
+}
+
+@media all and (max-width: 750px) {
+  .pokemon-button {
+    height: 50px;
+    width: 300px;
+  }
+
+}

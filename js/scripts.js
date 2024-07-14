@@ -43,21 +43,33 @@ let pokemonRepository = (function(){
         }
     }// end add()
 
+    // Function to add a pokemon item to the pokemon unordered list 
+    function addListItem(pokemon) {
+
+        // Get the DOM node for the pokmeon list
+        let elementPokemonList = document.querySelector('.pokemon-list');
+        console.log('elementPokemonList = '+elementPokemonList);
+
+        // Create new <li> to be appended to the elementPokemonList
+        let listItem = document.createElement('li');
+
+        // Create new <button> to be appended to the listItem & set innerText
+        let button = document.createElement('button');
+        button.innerText = pokemon.name;
+
+        // Add class pokemon-button to the new button
+        button.classList.add('pokemon-button');
+
+        // Append button to the <li>, then append the <li> to the <ul>
+        listItem.appendChild(button);
+        elementPokemonList.appendChild(listItem);
+    }
+
     // Function to use array filter() method to search for a pokemon by name 
     function contains(pokemonName) {
 
         console.log ('* pokemonRepository.contains() | Function called to search for ' + pokemonName);
 
-        /* Debugging forEach loop I used to ensure string values were 
-        correct during comparisons and proper comparisons made */
-
-        /*pokemonList.forEach(function(item) {
-            if((item.name).toLowerCase() === (pokemonName).toString().toLowerCase()) {
-                console.log('* pokemonRepository.contains() | CHECKING: MATCH!: '+item.name.toLowerCase()+' === '+pokemonName.toString().toLowerCase());
-            } else {
-                console.log('* pokemonRepository.contains() | CHECKING: '+item.name.toLowerCase()+' === '+pokemonName.toString().toLowerCase());
-            }
-        }); */
 
         // Initialize the filter() result array
         let isInListResult = [];
@@ -73,12 +85,14 @@ let pokemonRepository = (function(){
         }
     }// end contains()
 
-
     // Function to return the pokemonList
     function getAll(){
         return pokemonList;
     }
 
+
+
+    
     // Build thevinitial pokemonList with the 5 pokemon:
     pokemonList.push( 
         {
@@ -130,9 +144,10 @@ let pokemonRepository = (function(){
         }
     );
 
-    // Return object with references to the functions add() , contains() & getAll()
+    // Return object with references to the functions add() , addListItem(), contains() & getAll()
     return {
         add:add,
+        addListItem:addListItem,
         contains:contains,
         getAll:getAll
     };
@@ -174,25 +189,13 @@ pokemonRepository.contains('pikachu');
 console.log('* * Trying to search for Raichu object');
 pokemonRepository.contains('raichu');
 
+
+
+
 /* forEach Pokemon in the pokemonList array ... */
 pokemonRepository.getAll().forEach(function(currentPokemon) {
 
-    // Print to html page in <p></p> tags the number, name, type and height of each Pokemon in the array
-    document.write(
-        '<p>#' + currentPokemon.number 
-        +' '+ currentPokemon.name 
-        +' | Type: ' + currentPokemon.types
-        +' | Height: ' + currentPokemon.height +'m'
-    );
-    
-    // If the Pokemon's height is over 0.7, add additional flavor text
-    if(currentPokemon.height > tallHeight) {
-        document.write(' (Wow, that\'s big!)');
-    }
-
-    document.write(' | Evolves into: ' + currentPokemon.nextEvolution + ')');
-
-    // Closing paragraph tag
-    document.write('</p>');
+    // Add the pokemon to the HTML page in the <ul> with class pokemon-list
+    pokemonRepository.addListItem(currentPokemon);
 
 }); //end forEach loop
