@@ -1,19 +1,19 @@
-/* Create IIFE to declare the pokemonList[] and return access to functions */
+// Create IIFE to declare the pokemonList[] and return access to functions 
 let pokemonRepository = (function(){
 
-    /* Pokemon list array containing pokemon objects, each containing 
+    /* Pokemon list array containing Pokemon objects, each containing 
     information to display */
     let pokemonList = [];
 
     // Array of keys to use to compare to objects added in add() to ensure proper type
     let pokemonItemKeys = ['name', 'number', 'height', 'types', 'nextEvolution'];
 
-    // Function to add a pokemon to the end of the list
+    // Function to add a Pokemon to the end of the list
     function add(item) {
 
         // Check if item is an object and has the correct number of keys
-        console.log('* pokemonRepository.add() | typeof(item) === "object": '+(typeof(item)==="object") +' : '+ typeof(item));
-        console.log('* pokemonRepository.add() | (Object.keys(item).length === pokemonItemKeys.length): '+(Object.keys(item).length === pokemonItemKeys.length));
+        //console.log('* pokemonRepository.add() | typeof(item) === "object": '+(typeof(item)==="object") +' : '+ typeof(item));
+        //console.log('* pokemonRepository.add() | (Object.keys(item).length === pokemonItemKeys.length): '+(Object.keys(item).length === pokemonItemKeys.length));
 
         if( (typeof(item) === 'object') && (Object.keys(item).length === pokemonItemKeys.length) ) {
 
@@ -32,7 +32,7 @@ let pokemonRepository = (function(){
             }//end-for
 
             // If keyCompareResult is still true, then we have proper pokemon object structure and add the item
-            console.log('* pokemonRepository.add() | keyCompareResult: '+keyCompareResult);
+            //console.log('* pokemonRepository.add() | keyCompareResult: '+keyCompareResult);
 
             if(keyCompareResult) {
                 pokemonList.push(item);
@@ -43,7 +43,7 @@ let pokemonRepository = (function(){
         }
     }// end add()
 
-    // Function to add a pokemon item to the pokemon unordered list 
+    // Function to add a Pokemon item to the Pokemon unordered list 
     function addListItem(pokemon) {
 
         // Get the DOM node for the pokmeon list
@@ -63,9 +63,25 @@ let pokemonRepository = (function(){
         // Append button to the <li>, then append the <li> to the <ul>
         listItem.appendChild(button);
         elementPokemonList.appendChild(listItem);
-    }
 
-    // Function to use array filter() method to search for a pokemon by name 
+        // Add event listener to button
+        addListenerToListItem(button, pokemon);
+    }// end addListItem()
+
+    // Function that will add event listener to a button created in addListItem()
+    function addListenerToListItem(button, pokemon){
+        button.addEventListener('click', function(event){
+            console.log('* Event handler | clicked '+pokemon.name+' button');
+            showDetails(pokemon);
+        });
+    }// end addListerToListItem()
+
+    // Function will show details about passed Pokemon parameter inside event handler
+    function showDetails(pokemon){
+        console.log('* showDetails() | Will show '+pokemon.name+' details here later');
+    }// end showDetails()
+
+    // Function to use array filter() method to search for a Pokemon by name 
     function contains(pokemonName) {
 
         console.log ('* pokemonRepository.contains() | Function called to search for ' + pokemonName);
@@ -93,8 +109,8 @@ let pokemonRepository = (function(){
 
 
     
-    // Build thevinitial pokemonList with the 5 pokemon:
-    pokemonList.push( 
+    // Build the initial pokemonList:
+    add(
         {
             name:'Charmander',
             number: 4,
@@ -104,7 +120,7 @@ let pokemonRepository = (function(){
         }
     );
 
-    pokemonList.push(
+    add(
         {
             name:'Aron',
             number: 304,
@@ -114,7 +130,7 @@ let pokemonRepository = (function(){
         }
     );
 
-    pokemonList.push(
+    add(
         {
             name:'Blitzle',
             number: 522,
@@ -124,7 +140,7 @@ let pokemonRepository = (function(){
         }
     );
 
-    pokemonList.push(
+    add(
         {
             name:'Minccino',
             number: 572,
@@ -134,7 +150,7 @@ let pokemonRepository = (function(){
         }
     );
 
-    pokemonList.push(
+    add(
         {
             name:'Shroomish',
             number: 285,
@@ -144,7 +160,28 @@ let pokemonRepository = (function(){
         }
     );
 
+    add(
+        {
+            name: 'Pikachu',
+            number: 25,
+            height: 0.41,
+            types: ['electric'],
+            nextEvolution: 'Raichu'
+        }
+    );
+    
+    add(
+        {
+            name: 'Raichu',
+            number: 26,
+            height: 0.79,
+            types: ['electric'],
+            nextEvolution: 'none'
+        }
+    );
+
     // Return object with references to the functions add() , addListItem(), contains() & getAll()
+    // addListenerToListItem() & showDetails() will be used from within IIFE scope
     return {
         add:add,
         addListItem:addListItem,
@@ -153,49 +190,12 @@ let pokemonRepository = (function(){
     };
 })(); //end-IIFE
 
-
-
 let tallHeight = 0.7;
-
-//Test adding a valid and invalid pokemon object:
-
-console.log('* * Trying to add valid Pikachu object');
-//Valid format
-pokemonRepository.add(
-    {
-        name: 'Pikachu',
-        number: 25,
-        height: 0.41,
-        types: ['electric'],
-        nextEvolution: 'Raichu'
-    }
-);
-
-console.log('* * Trying to add invalid Raichu object');
-//Invalid format
-pokemonRepository.add(
-    {
-        name: 'Raichu',
-        number: 26,
-        height: 0.79,
-        types: ['electric'],
-        weight: 66.1
-    }
-);
-
-// Search for newly added Pikachu and Raichu using pokemonRepository.contains() function
-console.log('* * Trying to search for Pikachu object');
-pokemonRepository.contains('pikachu');
-console.log('* * Trying to search for Raichu object');
-pokemonRepository.contains('raichu');
-
-
-
 
 /* forEach Pokemon in the pokemonList array ... */
 pokemonRepository.getAll().forEach(function(currentPokemon) {
 
-    // Add the pokemon to the HTML page in the <ul> with class pokemon-list
+    // Add the Pokemon to the HTML page in the <ul> with class pokemon-list
     pokemonRepository.addListItem(currentPokemon);
 
 }); //end forEach loop
