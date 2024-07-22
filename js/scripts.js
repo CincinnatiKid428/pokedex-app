@@ -1,20 +1,68 @@
 // Create IIFE to declare the pokemonList[] and return access to functions 
 let pokemonRepository = (function(){
 
-    /* Pokemon list array containing Pokemon objects, each containing 
-    information to display */
+    console.log('pokemonRepository|Starting IIFE');
+
+    //*Pokemon list array to hold Pokemon objects & URL of Pokemon API 
     let pokemonList = [];
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
     // Array of keys to use to compare to objects added in add() to ensure proper type
-    let pokemonItemKeys = ['name', 'number', 'height', 'types', 'nextEvolution'];
+    let pokemonItemKeys = ['name', 'detailsUrl'];
+
+
+
+    // Function to fetch a list of Pokemon from https://pokeapi.co/api/v2/pokemon/ 
+    function loadList() {
+        console.log("pokemonRepository.loadList()| Called");
+
+        return fetch(apiUrl).then(function(response){ //fetch returns a promise
+            return response.json(); // .json() returns a promise 
+        }).then(function(jsonData) {
+
+            // forEach object in the parsed JSON Pokemon data...
+            jsonData.results.forEach(function(item){
+                // Create a simple Pokemon object with name & detailsUrl
+                let pokemon = { 
+                    name: item.name,
+                    detailsUrl: item.url
+                };
+                // Add the Pokemon object to the repository list
+                add(pokemon);
+            });
+            
+        }).catch(function(e) {
+            console.error(e);
+        })
+    } // end loadList()
+
+
+    // Function to fetch details about single/list? of Pokemon
+    function loadDetails(pokemon){
+
+        let url = pokemon.detailsUrl; 
+        return fetch(url).then(function(response) { // fetch returns promise to load external details
+            return response.json(); // .json also returns a promise with parsed JSON data
+        }).then(function(details) {
+
+                // Add the details from the resolved promise to the Pokemon item
+                pokemon.imageUrl = details.sprites.front_default;
+                pokemon.height = details.height;
+                pokemon.types = details.types;
+
+            }).catch(function(e) {
+                console.error('pokemonRepository.loadDetails()|ERROR|'+e);
+            });
+
+    } // end loadDetails()
+
 
     // Function to add a Pokemon to the end of the list
     function add(item) {
 
-        // Check if item is an object and has the correct number of keys
-        //console.log('* pokemonRepository.add() | typeof(item) === "object": '+(typeof(item)==="object") +' : '+ typeof(item));
-        //console.log('* pokemonRepository.add() | (Object.keys(item).length === pokemonItemKeys.length): '+(Object.keys(item).length === pokemonItemKeys.length));
+        //console.log('pokemonRepository.add()|Trying to add :'+item+' to pokemonList: '+pokemonList);
 
+        // Check if item is an object and has the correct number of keys
         if( (typeof(item) === 'object') && (Object.keys(item).length === pokemonItemKeys.length) ) {
 
             let keyCompareResult = true;
@@ -23,7 +71,7 @@ let pokemonRepository = (function(){
 
                 if(Object.keys(item)[i] !== pokemonItemKeys[i]) {
 
-                    console.log('* pokemonRepository.add() | Invalid key found: Object.keys(item)['+i+']!==pokemonItemKeys['+i+']: '+(Object.keys(item)[i] +'!=='+ pokemonItemKeys[i]));
+                    console.log('pokemonRepository.add()| Invalid key found: Object.keys(item)['+i+']!==pokemonItemKeys['+i+']: '+(Object.keys(item)[i] +'!=='+ pokemonItemKeys[i]));
                     keyCompareResult = false;
                     break;
 
@@ -43,19 +91,24 @@ let pokemonRepository = (function(){
         }
     }// end add()
 
-    // Function to add a Pokemon item to the Pokemon unordered list 
+
+    // Function to add a Pokemon item to the Pokemon unordered list as a new button with event listener
     function addListItem(pokemon) {
 
         // Get the DOM node for the pokmeon list
         let elementPokemonList = document.querySelector('.pokemon-list');
-        console.log('elementPokemonList = '+elementPokemonList);
+        console.log('pokemonRepository.addListItem()|elementPokemonList = '+elementPokemonList);
 
         // Create new <li> to be appended to the elementPokemonList
         let listItem = document.createElement('li');
 
-        // Create new <button> to be appended to the listItem & set innerText
+        // Create new <button> to be appended to the listItem
         let button = document.createElement('button');
-        button.innerText = pokemon.name;
+
+        // Capitalize first letter of Pokemon's name and set button innerText
+        let firstLetter = pokemon.name.charAt(0).toUpperCase(); 
+        let restOfName = pokemon.name.slice(1);
+        button.innerText = firstLetter + restOfName;
 
         // Add class pokemon-button to the new button
         button.classList.add('pokemon-button');
@@ -68,6 +121,7 @@ let pokemonRepository = (function(){
         addListenerToListItem(button, pokemon);
     }// end addListItem()
 
+
     // Function that will add event listener to a button created in addListItem()
     function addListenerToListItem(button, pokemon){
         button.addEventListener('click', function(event){
@@ -76,10 +130,14 @@ let pokemonRepository = (function(){
         });
     }// end addListerToListItem()
 
+
     // Function will show details about passed Pokemon parameter inside event handler
     function showDetails(pokemon){
-        console.log('* showDetails() | Will show '+pokemon.name+' details here later');
+        loadDetails(pokemon).then(function(){
+            console.log('pokemonRepository.showDetails()|'+JSON.stringify(pokemon));
+        });
     }// end showDetails()
+
 
     // Function to use array filter() method to search for a Pokemon by name 
     function contains(pokemonName) {
@@ -101,88 +159,27 @@ let pokemonRepository = (function(){
         }
     }// end contains()
 
+
     // Function to return the pokemonList
     function getAll(){
+        //console.log('pokemonRepository.getAll()|Returning pokemonList with length: '+pokemonList.length);
         return pokemonList;
     }
 
 
+    /* Return object with references to the functions:
+        loadList()
+        loadDetails()
+        add()
+        addListItem()
+        contains()
+        getAll()
 
-    
-    // Build the initial pokemonList:
-    add(
-        {
-            name:'Charmander',
-            number: 4,
-            height: 0.6,
-            types: ['fire'],
-            nextEvolution: 'Charmeleon'
-        }
-    );
-
-    add(
-        {
-            name:'Aron',
-            number: 304,
-            height: 0.4, 
-            types: ['steel','rock'],
-            nextEvolution: 'Lairon'
-        }
-    );
-
-    add(
-        {
-            name:'Blitzle',
-            number: 522,
-            height: 0.8,
-            types: ['electric'],
-            nextEvolution: 'Zebstrika'
-        }
-    );
-
-    add(
-        {
-            name:'Minccino',
-            number: 572,
-            height: 0.4,
-            types: ['normal'],
-            nextEvolution: 'Cinccino'
-        }
-    );
-
-    add(
-        {
-            name:'Shroomish',
-            number: 285,
-            height: 0.4,
-            types: ['grass'],
-            nextEvolution: 'Breloom'
-        }
-    );
-
-    add(
-        {
-            name: 'Pikachu',
-            number: 25,
-            height: 0.41,
-            types: ['electric'],
-            nextEvolution: 'Raichu'
-        }
-    );
-    
-    add(
-        {
-            name: 'Raichu',
-            number: 26,
-            height: 0.79,
-            types: ['electric'],
-            nextEvolution: 'none'
-        }
-    );
-
-    // Return object with references to the functions add() , addListItem(), contains() & getAll()
-    // addListenerToListItem() & showDetails() will be used from within IIFE scope
+     addListenerToListItem() & showDetails() will be used from within IIFE scope 
+    */
     return {
+        loadList:loadList,
+        loadDetails:loadDetails,
         add:add,
         addListItem:addListItem,
         contains:contains,
@@ -192,10 +189,15 @@ let pokemonRepository = (function(){
 
 let tallHeight = 0.7;
 
-/* forEach Pokemon in the pokemonList array ... */
-pokemonRepository.getAll().forEach(function(currentPokemon) {
-
-    // Add the Pokemon to the HTML page in the <ul> with class pokemon-list
-    pokemonRepository.addListItem(currentPokemon);
-
-}); //end forEach loop
+// Load the Pokemon list
+pokemonRepository.loadList().then(function(){
+    console.log('Resolved promise on loadList()|Data should be loaded. Size of loaded pokemon list should be 20: '+pokemonRepository.getAll().length);
+    
+    // forEach Pokemon in the pokemonList array ...
+    pokemonRepository.getAll().forEach(function(pokemon) {
+        // Add the Pokemon to the HTML page in the <ul> with class pokemon-list
+        pokemonRepository.addListItem(pokemon);
+        });
+}).catch(function(e) {
+    console.error('Rejected promise on loadList()|'+e);
+});
