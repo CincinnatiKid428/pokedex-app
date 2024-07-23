@@ -15,7 +15,7 @@
 
   .loading-message {
     font-size:inherit;
-    animation: 1s loading-fade infinite alternate ease-in-out;
+    animation: 1s loading-fade infinite alternate linear;
   }
 
   .hidden {
