@@ -13,6 +13,25 @@
     font-size: 48px;
   }
 
+  .loading-message {
+    font-size:inherit;
+    animation: 1s loading-fade infinite alternate ease-in-out;
+  }
+
+  .hidden {
+    visibility:hidden;
+  }
+
+  /*Fades from black to white for loading message animation*/
+@keyframes loading-fade { 
+  0% {
+    color:#000;
+  }
+  100% {
+    color: #fff;
+  }
+}
+
   .pokemon-list {
     list-style-type: none;
     margin-left: 0;
@@ -26,14 +45,13 @@
     height: 50px;
     width: 500px;
     margin: 5px;
+    padding-left: 20px;
     background-color:#fdde77;
     border-radius: 5px;
     border-top: 0;
     border-left: 0;
     border-right: 2px solid #000;
     border-bottom: 2px solid #000;
-    
-    
   }
 
   .pokemon-button:hover {
@@ -49,7 +67,7 @@
   .pokemon-button {
     height: 40px;
     width: 200px;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   h1{

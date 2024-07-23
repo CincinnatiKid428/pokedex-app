@@ -7,14 +7,29 @@ let pokemonRepository = (function(){
     let pokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
+    // Loading message element
+    let elementLoadingMessage = document.querySelector('.loading-message');
+    
     // Array of keys to use to compare to objects added in add() to ensure proper type
     let pokemonItemKeys = ['name', 'detailsUrl'];
 
+    // Function to show the loading message
+    function showLoadingMessage(){
+        console.log('pokemonRepository.showLoadingMessage()|Removing .hidden class to classlist of loading message element');
+        elementLoadingMessage.classList.remove('hidden');
+    }
+
+    // Function to hide the loading message
+    function hideLoadingMessage(){
+        console.log('pokemonRepository.hideLoadingMessage()|Adding .hidden class to classlist of loading message element');
+        elementLoadingMessage.classList.add('hidden');
+    }
 
 
     // Function to fetch a list of Pokemon from https://pokeapi.co/api/v2/pokemon/ 
     function loadList() {
-        console.log("pokemonRepository.loadList()| Called");
+        console.log("pokemonRepository.loadList()| Called, fetching data from "+apiUrl);
+        showLoadingMessage();
 
         return fetch(apiUrl).then(function(response){ //fetch returns a promise
             return response.json(); // .json() returns a promise 
@@ -30,8 +45,10 @@ let pokemonRepository = (function(){
                 // Add the Pokemon object to the repository list
                 add(pokemon);
             });
+            hideLoadingMessage();
             
         }).catch(function(e) {
+            hideLoadingMessage();
             console.error(e);
         })
     } // end loadList()
@@ -40,19 +57,24 @@ let pokemonRepository = (function(){
     // Function to fetch details about single/list? of Pokemon
     function loadDetails(pokemon){
 
+        showLoadingMessage();
+
         let url = pokemon.detailsUrl; 
         return fetch(url).then(function(response) { // fetch returns promise to load external details
             return response.json(); // .json also returns a promise with parsed JSON data
         }).then(function(details) {
 
-                // Add the details from the resolved promise to the Pokemon item
-                pokemon.imageUrl = details.sprites.front_default;
-                pokemon.height = details.height;
-                pokemon.types = details.types;
+            hideLoadingMessage();
 
-            }).catch(function(e) {
-                console.error('pokemonRepository.loadDetails()|ERROR|'+e);
-            });
+            // Add the details from the resolved promise to the Pokemon item
+            pokemon.imageUrl = details.sprites.front_default;
+            pokemon.height = details.height;
+            pokemon.types = details.types;
+
+        }).catch(function(e) {
+            hideLoadingMessage();
+            console.error('pokemonRepository.loadDetails()|ERROR|'+e);
+        });
 
     } // end loadDetails()
 
