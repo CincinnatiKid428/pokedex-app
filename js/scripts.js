@@ -13,6 +13,14 @@ let pokemonRepository = (function(){
     // Array of keys to use to compare to objects added in add() to ensure proper type
     let pokemonItemKeys = ['name', 'detailsUrl'];
 
+
+    // Function to capitalize first letter of string name
+    function firstLetterCaps(name) {
+        let firstLetter = name.charAt(0).toUpperCase(); 
+        let restOfName = name.slice(1);
+        return firstLetter + restOfName;
+    }
+
     // Function to show the loading message
     function showLoadingMessage(){
         console.log('pokemonRepository.showLoadingMessage()|Removing .hidden class to classlist of loading message element');
@@ -24,7 +32,6 @@ let pokemonRepository = (function(){
         console.log('pokemonRepository.hideLoadingMessage()|Adding .hidden class to classlist of loading message element');
         elementLoadingMessage.classList.add('hidden');
     }
-
 
     // Function to fetch a list of Pokemon from https://pokeapi.co/api/v2/pokemon/ 
     function loadList() {
@@ -128,9 +135,7 @@ let pokemonRepository = (function(){
         let button = document.createElement('button');
 
         // Capitalize first letter of Pokemon's name and set button innerText
-        let firstLetter = pokemon.name.charAt(0).toUpperCase(); 
-        let restOfName = pokemon.name.slice(1);
-        button.innerText = firstLetter + restOfName;
+        button.innerText = firstLetterCaps(pokemon.name);
 
         // Add class pokemon-button to the new button
         button.classList.add('pokemon-button');
@@ -153,12 +158,74 @@ let pokemonRepository = (function(){
     }// end addListerToListItem()
 
 
-    // Function will show details about passed Pokemon parameter inside event handler
+    // Function will show details in a modal about pokemon argument
     function showDetails(pokemon){
+
+        //Load pokemon details
         loadDetails(pokemon).then(function(){
             console.log('pokemonRepository.showDetails()|'+JSON.stringify(pokemon));
-        });
+        
+
+            //Prepare the modal with button and data from the Pokemon object argument
+            let modalContainer = document.querySelector('#modal-container');
+
+            //Clear out any existing html
+            modalContainer.innerHTML = "";
+
+            //Event listener for click outside of modal to close it
+            modalContainer.addEventListener('click', (e)=> {
+                console.log('modalContainer click event');
+                if(e.target === modalContainer && modalContainer.classList.contains('is-visible')){
+                    hideDetails();
+                }
+            });
+
+            //Create the modal div here, add class .modal
+            let modal = document.createElement('div');
+            modal.classList.add('modal');
+
+            //Create button to hide the modal
+            let closeModalButton = document.createElement('button');
+            closeModalButton.innerText = "Close";
+            closeModalButton.addEventListener('click', hideDetails);
+            closeModalButton.classList.add('close-modal-button');
+
+            //Title for modal with Pokemon name
+            let title = document.createElement('h1');
+            title.innerText = firstLetterCaps(pokemon.name);
+            title.classList.add('modal-title');
+
+            //Pokemon image with dynamic URL
+            let modalImgUrl = pokemon.imageUrl;
+            let modalImg = document.createElement('img');
+            modalImg.setAttribute('src', modalImgUrl);
+            modalImg.classList.add('modal-img');
+
+            //Create container for title/img spacing
+            let titleImgContainer = document.createElement('div');
+            titleImgContainer.classList.add('title-img-container');
+
+            //Append nodes to the DOM
+            modal.appendChild(closeModalButton);
+            titleImgContainer.appendChild(modalImg);
+            titleImgContainer.appendChild(title);
+            modal.appendChild(titleImgContainer);
+            modalContainer.appendChild(modal);
+
+            //Make the modal visible
+            modalContainer.classList.add('is-visible');
+
+        }); //then()
+
     }// end showDetails()
+
+
+    //Function will hide modal with Pokemon details
+    function hideDetails(){
+        let modalContainer = document.querySelector('#modal-container');
+        modalContainer.classList.remove('is-visible');
+        console.log("hideDetails()| Modal should be hidden now");
+    }// end hideDetails()
 
 
     // Function to use array filter() method to search for a Pokemon by name 
@@ -188,6 +255,14 @@ let pokemonRepository = (function(){
         return pokemonList;
     }
 
+//Event listener for Escape key to close a modal window
+window.addEventListener('keydown',(e)=> {
+    console.log('Escape key pressed')
+    let modalContainer = document.querySelector('#modal-container');
+    if(e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+        hideDetails();
+    }
+});
 
     /* Return object with references to the functions:
         loadList()
@@ -207,9 +282,10 @@ let pokemonRepository = (function(){
         contains:contains,
         getAll:getAll
     };
+
 })(); //end-IIFE
 
-let tallHeight = 0.7;
+
 
 // Load the Pokemon list
 pokemonRepository.loadList().then(function(){
