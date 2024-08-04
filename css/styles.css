@@ -139,10 +139,20 @@
     height: 40px;
     width: 200px;
     font-size: 16px;
+
   }
 
   h1{
     font-size: 28px;
+  }
+
+  .modal-img {
+    height: 60%;
+    width: 60%;
+  }
+
+  .modal-title {
+    font-size: 18px;
   }
 }
 
@@ -153,6 +163,15 @@
   }
   h1{
     font-size: 36px;
+  }
+
+  .modal-img {
+    height: 80%;
+    width: 80%;
+  }
+
+  .modal-title {
+    font-size: 22px;
   }
 }
 
