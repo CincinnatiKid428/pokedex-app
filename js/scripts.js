@@ -113,7 +113,6 @@ let pokemonRepository = (function(){
 
             if(keyCompareResult) {
                 pokemonList.push(item);
-                console.log('* pokemonRepository.add() | Added pokemon to list: '+item.name);
             } else {
                 console.log('* pokemonRepository.add() | Invalid pokemon object format, cannot add to list!');
             }
@@ -126,7 +125,6 @@ let pokemonRepository = (function(){
 
         // Get the DOM node for the pokmeon list
         let elementPokemonList = document.querySelector('.pokemon-list');
-        console.log('pokemonRepository.addListItem()|elementPokemonList = '+elementPokemonList);
 
         // Create new <li> to be appended to the elementPokemonList
         let listItem = document.createElement('li');
@@ -163,7 +161,7 @@ let pokemonRepository = (function(){
 
         //Load pokemon details
         loadDetails(pokemon).then(function(){
-            console.log('pokemonRepository.showDetails()|'+JSON.stringify(pokemon));
+            //console.log('pokemonRepository.showDetails()|'+JSON.stringify(pokemon));
         
 
             //Prepare the modal with button and data from the Pokemon object argument
@@ -205,11 +203,61 @@ let pokemonRepository = (function(){
             let titleImgContainer = document.createElement('div');
             titleImgContainer.classList.add('title-img-container');
 
+            //Create container for pokemon information
+            let modalInfoContainer = document.createElement('div');
+            modalInfoContainer.classList.add('modalInfoContainer');
+
+            //Add height & types fields in a table
+            let infoTable = document.createElement('table');
+            infoTable.classList.add('modal-info-table');
+
+            //Height
+            let heightRow = document.createElement('tr');
+            let heightLabel = document.createElement('td');
+            heightLabel.classList.add('modal-info-stat');
+            heightLabel.innerText = 'Height:';
+            let heightValue = document.createElement('td');
+            heightValue.classList.add('modal-info-value');
+            heightValue.innerText = pokemon.height;
+
+            heightRow.appendChild(heightLabel);
+            heightRow.appendChild(heightValue);
+            infoTable.appendChild(heightRow);
+
+            //Types
+            let typesRow = document.createElement('tr');
+            let typesLabel = document.createElement('td');
+            typesLabel.classList.add('modal-info-stat');
+            typesLabel.innerText = 'Types:';
+            let typesValue = document.createElement('td');
+            typesValue.classList.add('modal-info-value');
+
+            //Array object holding all types as strings
+            let typesObj = []; 
+
+            //Store all the types in typesObj
+            pokemon.types.forEach((item)=> {
+                console.log('Found type: '+item.type.name);
+                typesObj.push(firstLetterCaps(item.type.name));
+            });
+
+            typesValue.innerText = typesObj;
+            console.log('typesObj: '+typesObj);
+
+            typesRow.appendChild(typesLabel);
+            typesRow.appendChild(typesValue);
+            infoTable.appendChild(typesRow);
+
+            //Add table to modalInfoContainer
+            modalInfoContainer.appendChild(infoTable);
+
+
             //Append nodes to the DOM
             modal.appendChild(closeModalButton);
             titleImgContainer.appendChild(modalImg);
             titleImgContainer.appendChild(title);
             modal.appendChild(titleImgContainer);
+              modal.appendChild(modalInfoContainer);
             modalContainer.appendChild(modal);
 
             //Make the modal visible
