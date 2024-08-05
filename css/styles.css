@@ -111,6 +111,7 @@
 .title-img-container{
   border: var(--debug-border);
   display: grid;
+  clear:both;
   grid-template-columns: 1fr 2fr 1fr;
   height: auto;
 }
@@ -125,10 +126,15 @@
 .modal-img {
   border: var(--debug-border);
   display: inline;
+  height: 115%;
+  width: 115%;
+  max-height: 125%;
+  max-width: 125%;
+
 }
 
 .modal-info-container {
-  display:grid;
+  display:block;
   border: var(--debug-border);
   column-gap: 10px;
 }
@@ -169,6 +175,11 @@
 
   .modal-title {
     font-size: 26px;
+  }
+
+  .modal-img {
+    height:100%;
+    width:100%;
   }
 }
 /* For screens 500 to 750 pixel width */
