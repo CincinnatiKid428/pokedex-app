@@ -89,7 +89,7 @@ let pokemonRepository = (function(){
     // Function to add a Pokemon to the end of the list
     function add(item) {
 
-        //console.log('pokemonRepository.add()|Trying to add :'+item+' to pokemonList: '+pokemonList);
+        console.log('pokemonRepository.add()|Trying to add :'+item+' to pokemonList: '+pokemonList);
 
         // Check if item is an object and has the correct number of keys
         if( (typeof(item) === 'object') && (Object.keys(item).length === pokemonItemKeys.length) ) {
@@ -123,8 +123,10 @@ let pokemonRepository = (function(){
     // Function to add a Pokemon item to the Pokemon unordered list as a new button with event listener
     function addListItem(pokemon) {
 
+        console.log('addListItem()| Trying to add '+pokemon.name);
         // Get the DOM node for the pokmeon list
-        let elementPokemonList = document.querySelector('.pokemon-list');
+        let elementPokemonList = document.querySelector('#list-for-pokemon');
+        console.log('addListItem()| Got dom element for list: '+elementPokemonList);
 
         // Create new <li> to be appended to the elementPokemonList
         let listItem = document.createElement('li');
@@ -136,7 +138,16 @@ let pokemonRepository = (function(){
         button.innerText = firstLetterCaps(pokemon.name);
 
         // Add class pokemon-button to the new button
-        button.classList.add('pokemon-button');
+        //button.classList.add('pokemon-button');
+        button.classList.add('btn');
+        button.classList.add('btn-outline-dark');
+        button.classList.add('col-lg-4');
+        button.classList.add('col-md-6');
+        button.classList.add('col-sm-12');
+
+        
+        listItem.classList.add('list-group-item');
+        listItem.classList.add('row');
 
         // Append button to the <li>, then append the <li> to the <ul>
         listItem.appendChild(button);
