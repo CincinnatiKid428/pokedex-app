@@ -141,11 +141,10 @@ let pokemonRepository = (function(){
         //button.classList.add('pokemon-button');
         button.classList.add('btn');
         button.classList.add('btn-outline-dark');
-        button.classList.add('col-lg-4');
         button.classList.add('col-md-6');
         button.classList.add('col-sm-12');
 
-        
+
         listItem.classList.add('list-group-item');
         listItem.classList.add('row');
 
