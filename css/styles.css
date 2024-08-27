@@ -64,7 +64,7 @@
     font-weight: 600;
   }
 
-/* ------------------- Modal Section ------------------- */
+/* ------------------- Modal Section ------------------- 
 #modal-container {
   display: none;
 }
@@ -97,7 +97,7 @@
 }
 
 .close-modal-button{
-  /*border: 2px, solid, crimson;*/
+  /*border: 2px, solid, crimson;
   float: right;
   border: 0;
   background: none;
@@ -158,10 +158,11 @@
   text-align: left;
   color:#000;
 }
+*/
 /* ---------------Responsive Design Section--------------- */
 
 /* For screens up to 500 pixel width (smart phones & tablets) */
-
+/*
 @media all and (max-width: 500px) {
   .pokemon-button {
     height: 40px;
@@ -181,8 +182,11 @@
     height:100%;
     width:100%;
   }
-}
+}*/
+
+
 /* For screens 500 to 750 pixel width */
+/*
 @media all and (min-width: 500px) and (max-width: 750px) {
   .pokemon-button {
     height: 45px;
@@ -197,13 +201,13 @@
   .modal-title {
     font-size: 36px;
   }
-}
+}*/
 
 /* For screens with 750+ pixel width */
-
+/*
 @media all and (min-width: 750px) {
   .pokemon-button {
     height: 50px;
     width: 500px;
   }
-}
+}*/

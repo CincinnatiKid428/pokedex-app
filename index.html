@@ -28,20 +28,22 @@
 
     <!--------------------Bootstrap modal start-------------------->
     <div class="modal fade" id="pokemonModal" role="dialog" tabindex="-1" aria-labelledby="pokemonModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="pokemonModalLabel">Pokemon Name Here</h5>
+                    <h1 class="modal-title" id="pokemonModalLabel">Pokemon Name Here</h1>
+                    <img id="pokemonFrontImg" src="#">
+                    <img id="pokemonBackImg" src="#">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    Pokemon picture/information here
+                <div class="modal-body text-wrap">
+                    <ul class="list-group" id="pokemonInfo"></ul>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" hidden>Save changes</button>
                 </div>
             </div>
         </div>
@@ -49,8 +51,6 @@
     <!--------------------Bootstrap modal end---------------------->
 
     <ul class="list-group" id="list-for-pokemon"></ul>
-
-    <div id="modal-container"></div>
 
     <script src="js/fetch-polyfill.js"></script>
     <script src="js/promise-polyfill.js"></script>

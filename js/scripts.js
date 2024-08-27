@@ -74,9 +74,12 @@ let pokemonRepository = (function(){
             hideLoadingMessage();
 
             // Add the details from the resolved promise to the Pokemon item
-            pokemon.imageUrl = details.sprites.front_default;
+            pokemon.imageFrontUrl = details.sprites.front_default;
+            pokemon.imageBackUrl = details.sprites.back_default;
+            //pokemon.artworkFrontUrl = details.sprites.other.official-artwork.front_default;
             pokemon.height = details.height;
             pokemon.types = details.types;
+            pokemon.abilities = details.abilities;
 
         }).catch(function(e) {
             hideLoadingMessage();
@@ -130,6 +133,10 @@ let pokemonRepository = (function(){
 
         // Create new <li> to be appended to the elementPokemonList
         let listItem = document.createElement('li');
+        // Add classes to list item
+        listItem.classList.add('list-group-item');
+        listItem.classList.add('row');
+        
 
         // Create new <button> to be appended to the listItem
         let button = document.createElement('button');
@@ -137,22 +144,24 @@ let pokemonRepository = (function(){
         // Capitalize first letter of Pokemon's name and set button innerText
         button.innerText = firstLetterCaps(pokemon.name);
 
-        // Add class pokemon-button to the new button
+        // Add classes to the new button
         //button.classList.add('pokemon-button');
         button.classList.add('btn');
         button.classList.add('btn-outline-dark');
         button.classList.add('col-md-6');
         button.classList.add('col-sm-12');
 
+        // Add attributes data-toggle and data-target to <button>
+        button.setAttribute("data-toggle","modal");
+        button.setAttribute("data-target","#pokemonModal");
 
-        listItem.classList.add('list-group-item');
-        listItem.classList.add('row');
+
 
         // Append button to the <li>, then append the <li> to the <ul>
         listItem.appendChild(button);
         elementPokemonList.appendChild(listItem);
 
-        // Add event listener to button
+        // Add event listener to button that will make call to showDetails()
         addListenerToListItem(button, pokemon);
     }// end addListItem()
 
@@ -171,68 +180,82 @@ let pokemonRepository = (function(){
 
         //Load pokemon details
         loadDetails(pokemon).then(function(){
-            //console.log('pokemonRepository.showDetails()|'+JSON.stringify(pokemon));
+            console.log('pokemonRepository.showDetails()|'+JSON.stringify(pokemon));
         
+            // Prepare the modal with button and data from the Pokemon object argument
 
-            //Prepare the modal with button and data from the Pokemon object argument
-            let modalContainer = document.querySelector('#modal-container');
+            // DOM elements selected
+            let modalTitle = document.querySelector('.modal-title');
+            let modalInfo = document.querySelector('#pokemonInfo');
+            let modalFrontImg = $('#pokemonFrontImg');
+            let modalBackImg = $('#pokemonBackImg');
+ 
 
-            //Clear out any existing html
-            modalContainer.innerHTML = "";
+            //Clear out any existing content & images from prior use of modal
+            $('#pokemonInfo').empty();
+            modalFrontImg.attr('src', "#");
+            modalBackImg.attr('src', "#");
 
-            //Event listener for click outside of modal to close it
-            modalContainer.addEventListener('click', (e)=> {
-                console.log('modalContainer click event');
-                if(e.target === modalContainer && modalContainer.classList.contains('is-visible')){
-                    hideDetails();
-                }
-            });
+                                                        /*
 
-            //Create the modal div here, add class .modal
-            let modal = document.createElement('div');
-            modal.classList.add('modal');
+                                                        //Event listener for click outside of modal to close it
+                                                        modalContainer.addEventListener('click', (e)=> {
+                                                            console.log('modalContainer click event');
+                                                            if(e.target === modalContainer && modalContainer.classList.contains('is-visible')){
+                                                                hideDetails();
+                                                            }
+                                                        });
 
-            //Create button to hide the modal
-            let closeModalButton = document.createElement('button');
-            closeModalButton.innerText = "Close";
-            closeModalButton.addEventListener('click', hideDetails);
-            closeModalButton.classList.add('close-modal-button');
+                                                        //Create the modal div here, add class .modal
+                                                        let modal = document.createElement('div');
+                                                        modal.classList.add('modal');
+
+                                                        //Create button to hide the modal
+                                                        let closeModalButton = document.createElement('button');
+                                                        closeModalButton.innerText = "Close";
+                                                        closeModalButton.addEventListener('click', hideDetails);
+                                                        closeModalButton.classList.add('close-modal-button');
+
+                                                        */
 
             //Title for modal with Pokemon name
-            let title = document.createElement('h1');
-            title.innerText = firstLetterCaps(pokemon.name);
-            title.classList.add('modal-title');
+                                                        //let title = document.createElement('h1');
+            modalTitle.innerText = firstLetterCaps(pokemon.name);
+                                                        //title.classList.add('modal-title');
 
-            //Pokemon image with dynamic URL
-            let modalImgUrl = pokemon.imageUrl;
-            let modalImg = document.createElement('img');
-            modalImg.setAttribute('src', modalImgUrl);
-            modalImg.classList.add('modal-img');
+            //Set Pokemon image src attribute with dynamic URLs
+            modalFrontImg.attr('src', pokemon.imageFrontUrl);
+            modalBackImg.attr('src', pokemon.imageBackUrl);
 
-            //Create container for title/img spacing
-            let titleImgContainer = document.createElement('div');
-            titleImgContainer.classList.add('title-img-container');
+                                                        //Create container for title/img spacing
+                                                        /*let titleImgContainer = document.createElement('div');
+                                                        titleImgContainer.classList.add('title-img-container');*/
 
-            //Create container for pokemon information
-            let modalInfoContainer = document.createElement('div');
-            modalInfoContainer.classList.add('modalInfoContainer');
+                                                        //Create container for pokemon information
+                                                        /*let modalInfoContainer = document.createElement('div');
+                                                        modalInfoContainer.classList.add('modalInfoContainer');*/
 
-            //Add height & types fields in a table
-            let infoTable = document.createElement('table');
-            infoTable.classList.add('modal-info-table');
+            //Add Pokemon info each as a list-group-item <li>
+                                                        /* let infoTable = document.createElement('table');
+                                                        infoTable.classList.add('modal-info-table');*/
 
             //Height
-            let heightRow = document.createElement('tr');
-            let heightLabel = document.createElement('td');
-            heightLabel.classList.add('modal-info-stat');
+            let heightRow = document.createElement('li');
+            heightRow.classList.add('row');
+            let heightLabel = document.createElement('div');
+            heightLabel.classList.add('col-6');
+            heightLabel.classList.add('h5');
+            heightLabel.classList.add('text-right')
             heightLabel.innerText = 'Height:';
-            let heightValue = document.createElement('td');
-            heightValue.classList.add('modal-info-value');
+            let heightValue = document.createElement('div');
+            heightValue.classList.add('col-6');
+            heightValue.classList.add('h5');
+            heightValue.classList.add('text-left');
             heightValue.innerText = pokemon.height;
 
             heightRow.appendChild(heightLabel);
             heightRow.appendChild(heightValue);
-            infoTable.appendChild(heightRow);
+            modalInfo.appendChild(heightRow);
 
             //Types
             let typesRow = document.createElement('tr');
@@ -256,23 +279,30 @@ let pokemonRepository = (function(){
 
             typesRow.appendChild(typesLabel);
             typesRow.appendChild(typesValue);
-            infoTable.appendChild(typesRow);
+            //infoTable.appendChild(typesRow);
+
+            //////////////////////////////////
+            //
+            // Get the abilities here
+            //
+            //////////////////////////////////
 
             //Add table to modalInfoContainer
             modalInfoContainer.appendChild(infoTable);
 
 
-            //Append nodes to the DOM
-            modal.appendChild(closeModalButton);
-            titleImgContainer.appendChild(modalImg);
-            titleImgContainer.appendChild(title);
-            modal.appendChild(titleImgContainer);
-              modal.appendChild(modalInfoContainer);
-            modalContainer.appendChild(modal);
+                                                        //Append nodes to the DOM
+                                                        /*
+                                                        modal.appendChild(closeModalButton);
+                                                        titleImgContainer.appendChild(modalImg);
+                                                        titleImgContainer.appendChild(title);
+                                                        modal.appendChild(titleImgContainer);
+                                                        modal.appendChild(modalInfoContainer);
+                                                        modalContainer.appendChild(modal);
 
-            //Make the modal visible
-            modalContainer.classList.add('is-visible');
-
+                                                        //Make the modal visible
+                                                        modalContainer.classList.add('is-visible');
+                                                        */
         }); //then()
 
     }// end showDetails()
