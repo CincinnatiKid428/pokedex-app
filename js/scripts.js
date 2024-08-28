@@ -76,7 +76,9 @@ let pokemonRepository = (function(){
             // Add the details from the resolved promise to the Pokemon item
             pokemon.imageFrontUrl = details.sprites.front_default;
             pokemon.imageBackUrl = details.sprites.back_default;
-            //pokemon.artworkFrontUrl = details.sprites.other.official-artwork.front_default;
+            //pokemon.artworkFrontUrl = details.sprites.other.official-artwork.front_default; //Unable to pull this from API ??
+            //console.log("loadDetails()|Artwork image URL is : "+pokemon.artworkFrontUrl);
+            pokemon.order = details.order;
             pokemon.height = details.height;
             pokemon.types = details.types;
             pokemon.abilities = details.abilities;
@@ -91,8 +93,6 @@ let pokemonRepository = (function(){
 
     // Function to add a Pokemon to the end of the list
     function add(item) {
-
-        console.log('pokemonRepository.add()|Trying to add :'+item+' to pokemonList: '+pokemonList);
 
         // Check if item is an object and has the correct number of keys
         if( (typeof(item) === 'object') && (Object.keys(item).length === pokemonItemKeys.length) ) {
@@ -127,17 +127,17 @@ let pokemonRepository = (function(){
     function addListItem(pokemon) {
 
         console.log('addListItem()| Trying to add '+pokemon.name);
+
         // Get the DOM node for the pokmeon list
         let elementPokemonList = document.querySelector('#list-for-pokemon');
-        console.log('addListItem()| Got dom element for list: '+elementPokemonList);
 
         // Create new <li> to be appended to the elementPokemonList
         let listItem = document.createElement('li');
+
         // Add classes to list item
         listItem.classList.add('list-group-item');
         listItem.classList.add('row');
         
-
         // Create new <button> to be appended to the listItem
         let button = document.createElement('button');
 
@@ -145,7 +145,6 @@ let pokemonRepository = (function(){
         button.innerText = firstLetterCaps(pokemon.name);
 
         // Add classes to the new button
-        //button.classList.add('pokemon-button');
         button.classList.add('btn');
         button.classList.add('btn-outline-dark');
         button.classList.add('col-md-6');
@@ -154,8 +153,6 @@ let pokemonRepository = (function(){
         // Add attributes data-toggle and data-target to <button>
         button.setAttribute("data-toggle","modal");
         button.setAttribute("data-target","#pokemonModal");
-
-
 
         // Append button to the <li>, then append the <li> to the <ul>
         listItem.appendChild(button);
