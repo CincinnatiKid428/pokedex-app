@@ -19,12 +19,17 @@
 </head>
 
 <body>
+
+    <!--------------------Navbar start-------------------->
+
+    <!--------------------Navbar end---------------------->
     <h1>Pokedex <span class="loading-message">Loading...</span></h1>
 
-    <!--------------------Bootstrap modal toggle button for testing-------------------->
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#pokemonModal">
-        Test Modal
-    </button>
+                                            <!--------------------Bootstrap modal toggle button for testing------------------
+                                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#pokemonModal">
+                                                Test Modal
+                                            </button>
+                                            -->
 
     <!--------------------Bootstrap modal start-------------------->
     <div class="modal fade" id="pokemonModal" role="dialog" tabindex="-1" aria-labelledby="pokemonModalLabel" aria-hidden="true">
@@ -39,10 +44,10 @@
                     </button>
                 </div>
                 <div class="modal-body text-wrap">
-                    <ul class="list-group" id="pokemonInfo"></ul>
+                    <ul class="list-group" id="pokemonInfo" aria-label="Details list"></ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close button">Close</button>
                     <button type="button" class="btn btn-primary" hidden>Save changes</button>
                 </div>
             </div>

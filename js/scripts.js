@@ -239,14 +239,16 @@ let pokemonRepository = (function(){
                                                         /* let infoTable = document.createElement('table');
                                                         infoTable.classList.add('modal-info-table');*/
 
-            //Height
+            //Height-------------------------------------
             let heightRow = document.createElement('li');
             heightRow.classList.add('row');
+
             let heightLabel = document.createElement('div');
             heightLabel.classList.add('col-6');
             heightLabel.classList.add('h5');
             heightLabel.classList.add('text-right')
             heightLabel.innerText = 'Height:';
+
             let heightValue = document.createElement('div');
             heightValue.classList.add('col-6');
             heightValue.classList.add('h5');
@@ -257,15 +259,22 @@ let pokemonRepository = (function(){
             heightRow.appendChild(heightValue);
             modalInfo.appendChild(heightRow);
 
-            //Types
-            let typesRow = document.createElement('tr');
-            let typesLabel = document.createElement('td');
-            typesLabel.classList.add('modal-info-stat');
-            typesLabel.innerText = 'Types:';
-            let typesValue = document.createElement('td');
-            typesValue.classList.add('modal-info-value');
+            //Types-------------------------------------
+            let typesRow = document.createElement('li');
+            typesRow.classList.add('row');
 
-            //Array object holding all types as strings
+            let typesLabel = document.createElement('div');
+            typesLabel.classList.add('col-6');
+            typesLabel.classList.add('h5');
+            typesLabel.classList.add('text-right');
+            typesLabel.innerText = 'Types:';
+
+            let typesValue = document.createElement('td');
+            typesValue.classList.add('col-6');
+            typesValue.classList.add('h5');
+            typesValue.classList.add('text-left');
+
+            //Array object holding all Pokemon types as strings
             let typesObj = []; 
 
             //Store all the types in typesObj
@@ -274,21 +283,48 @@ let pokemonRepository = (function(){
                 typesObj.push(firstLetterCaps(item.type.name));
             });
 
-            typesValue.innerText = typesObj;
-            console.log('typesObj: '+typesObj);
+            //Formatting to add space after the comma
+            typesValue.innerText = typesObj.toString().replaceAll(",",", ");
+            console.log('typesObj: '+typesObj.toString().replaceAll(",",", "));
 
             typesRow.appendChild(typesLabel);
             typesRow.appendChild(typesValue);
-            //infoTable.appendChild(typesRow);
+            modalInfo.appendChild(typesRow);
 
-            //////////////////////////////////
-            //
-            // Get the abilities here
-            //
-            //////////////////////////////////
+            //Abilities-------------------------------------
+            let abilitiesRow = document.createElement('li');
+            abilitiesRow.classList.add('row');
 
-            //Add table to modalInfoContainer
-            modalInfoContainer.appendChild(infoTable);
+            let abilitiesLabel = document.createElement('div');
+            abilitiesLabel.classList.add('col-6');
+            abilitiesLabel.classList.add('h5');
+            abilitiesLabel.classList.add('text-right');
+            abilitiesLabel.innerText = 'Abilities:';
+
+            let abilitiesValue = document.createElement('td');
+            abilitiesValue.classList.add('col-6');
+            abilitiesValue.classList.add('h5');
+            abilitiesValue.classList.add('text-left');
+
+            //Array object holding all Pokemon abilities as strings
+            let abilitiesObj = []; 
+
+            //Store all the abilities in abilitiesObj
+            pokemon.abilities.forEach((item)=> {
+                console.log('Found ability: '+item.ability.name);
+                abilitiesObj.push(firstLetterCaps(item.ability.name));
+            });
+
+            //Formatting to add space after the comma
+            abilitiesValue.innerText = abilitiesObj.toString().replaceAll(",",", ");
+            console.log('abilitiesObj: '+abilitiesObj.toString().replaceAll(",",", "));
+
+            abilitiesRow.appendChild(abilitiesLabel);
+            abilitiesRow.appendChild(abilitiesValue);
+            modalInfo.appendChild(abilitiesRow);
+
+                                                        //Add table to modalInfoContainer
+                                                        //modalInfoContainer.appendChild(infoTable);
 
 
                                                         //Append nodes to the DOM
