@@ -137,9 +137,13 @@ let pokemonRepository = (function(){
         // Add classes to list item
         listItem.classList.add('list-group-item');
         listItem.classList.add('row');
+        //listItem.classList.add('border');
+        //listItem.classList.add('border-primary');
+        
         
         // Create new <button> to be appended to the listItem
         let button = document.createElement('button');
+
 
         // Capitalize first letter of Pokemon's name and set button innerText
         button.innerText = firstLetterCaps(pokemon.name);
@@ -147,14 +151,14 @@ let pokemonRepository = (function(){
         // Add classes to the new button
         button.classList.add('btn');
         button.classList.add('btn-outline-dark');
-        button.classList.add('col-md-6');
-        button.classList.add('col-sm-12');
+        button.classList.add('col-8');
+        button.classList.add('col-sm-6');
 
         // Add attributes data-toggle and data-target to <button>
         button.setAttribute("data-toggle","modal");
         button.setAttribute("data-target","#pokemonModal");
 
-        // Append button to the <li>, then append the <li> to the <ul>
+        // Append button to <li>, then append the <li> to the <ul>
         listItem.appendChild(button);
         elementPokemonList.appendChild(listItem);
 
@@ -193,50 +197,17 @@ let pokemonRepository = (function(){
             modalFrontImg.attr('src', "#");
             modalBackImg.attr('src', "#");
 
-                                                        /*
-
-                                                        //Event listener for click outside of modal to close it
-                                                        modalContainer.addEventListener('click', (e)=> {
-                                                            console.log('modalContainer click event');
-                                                            if(e.target === modalContainer && modalContainer.classList.contains('is-visible')){
-                                                                hideDetails();
-                                                            }
-                                                        });
-
-                                                        //Create the modal div here, add class .modal
-                                                        let modal = document.createElement('div');
-                                                        modal.classList.add('modal');
-
-                                                        //Create button to hide the modal
-                                                        let closeModalButton = document.createElement('button');
-                                                        closeModalButton.innerText = "Close";
-                                                        closeModalButton.addEventListener('click', hideDetails);
-                                                        closeModalButton.classList.add('close-modal-button');
-
-                                                        */
 
             //Title for modal with Pokemon name
-                                                        //let title = document.createElement('h1');
             modalTitle.innerText = firstLetterCaps(pokemon.name);
-                                                        //title.classList.add('modal-title');
 
             //Set Pokemon image src attribute with dynamic URLs
             modalFrontImg.attr('src', pokemon.imageFrontUrl);
             modalBackImg.attr('src', pokemon.imageBackUrl);
 
-                                                        //Create container for title/img spacing
-                                                        /*let titleImgContainer = document.createElement('div');
-                                                        titleImgContainer.classList.add('title-img-container');*/
-
-                                                        //Create container for pokemon information
-                                                        /*let modalInfoContainer = document.createElement('div');
-                                                        modalInfoContainer.classList.add('modalInfoContainer');*/
-
             //Add Pokemon info each as a list-group-item <li>
-                                                        /* let infoTable = document.createElement('table');
-                                                        infoTable.classList.add('modal-info-table');*/
 
-            //Height-------------------------------------
+        //--Height-------------------------------------
             let heightRow = document.createElement('li');
             heightRow.classList.add('row');
 
@@ -252,11 +223,12 @@ let pokemonRepository = (function(){
             heightValue.classList.add('text-left');
             heightValue.innerText = pokemon.height;
 
+            //Add height to the modal body
             heightRow.appendChild(heightLabel);
             heightRow.appendChild(heightValue);
             modalInfo.appendChild(heightRow);
 
-            //Types-------------------------------------
+        //--Types-------------------------------------
             let typesRow = document.createElement('li');
             typesRow.classList.add('row');
 
@@ -276,19 +248,18 @@ let pokemonRepository = (function(){
 
             //Store all the types in typesObj
             pokemon.types.forEach((item)=> {
-                console.log('Found type: '+item.type.name);
                 typesObj.push(firstLetterCaps(item.type.name));
             });
 
             //Formatting to add space after the comma
             typesValue.innerText = typesObj.toString().replaceAll(",",", ");
-            console.log('typesObj: '+typesObj.toString().replaceAll(",",", "));
 
+            //Add types to the modal body
             typesRow.appendChild(typesLabel);
             typesRow.appendChild(typesValue);
             modalInfo.appendChild(typesRow);
 
-            //Abilities-------------------------------------
+        //--Abilities-------------------------------------
             let abilitiesRow = document.createElement('li');
             abilitiesRow.classList.add('row');
 
@@ -308,34 +279,19 @@ let pokemonRepository = (function(){
 
             //Store all the abilities in abilitiesObj
             pokemon.abilities.forEach((item)=> {
-                console.log('Found ability: '+item.ability.name);
                 abilitiesObj.push(firstLetterCaps(item.ability.name));
             });
 
             //Formatting to add space after the comma
             abilitiesValue.innerText = abilitiesObj.toString().replaceAll(",",", ");
-            console.log('abilitiesObj: '+abilitiesObj.toString().replaceAll(",",", "));
 
+            //Add abilities to the modal body
             abilitiesRow.appendChild(abilitiesLabel);
             abilitiesRow.appendChild(abilitiesValue);
             modalInfo.appendChild(abilitiesRow);
 
-                                                        //Add table to modalInfoContainer
-                                                        //modalInfoContainer.appendChild(infoTable);
+        //--New info would be added here--//
 
-
-                                                        //Append nodes to the DOM
-                                                        /*
-                                                        modal.appendChild(closeModalButton);
-                                                        titleImgContainer.appendChild(modalImg);
-                                                        titleImgContainer.appendChild(title);
-                                                        modal.appendChild(titleImgContainer);
-                                                        modal.appendChild(modalInfoContainer);
-                                                        modalContainer.appendChild(modal);
-
-                                                        //Make the modal visible
-                                                        modalContainer.classList.add('is-visible');
-                                                        */
         }); //then()
 
     }// end showDetails()

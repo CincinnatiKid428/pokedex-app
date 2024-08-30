@@ -21,7 +21,7 @@
 <body>
 
     <!--------------------Navbar start-------------------->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
 
         <a class="navbar-brand" href="#">
             <h2>P<img src="img/pokeball-32x32.png" height="32" width="32">kedex</h2>
@@ -37,10 +37,10 @@
                     <a class="nav-link" href="#">Home<span class="sr-only">(Current page)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Menu Option 2</a>
+                    <a class="nav-link" href="https://pokeapi.co/">PokeAPI</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Menu Option 3</a>
+                    <a class="nav-link" href="https://github.com/">GitHub</a>
                 </li>
             </ul>
         </div>
@@ -49,26 +49,22 @@
 
     <span class="loading-message"><h3>Loading...</h3></span>
 
-                                            <!--------------------Bootstrap modal toggle button for testing------------------
-                                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#pokemonModal">
-                                                Test Modal
-                                            </button>
-                                            -->
-
     <!--------------------Bootstrap modal start-------------------->
     <div class="modal fade" id="pokemonModal" role="dialog" tabindex="-1" aria-labelledby="pokemonModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title" id="pokemonModalLabel">Pokemon Name Here</h2>
-                    <img id="pokemonFrontImg" src="#">
-                    <img id="pokemonBackImg" src="#">
+                    <div>
+                        <img id="pokemonFrontImg" src="#">
+                        <img id="pokemonBackImg" src="#">
+                    </div>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body text-wrap">
-                    <ul class="list-group" id="pokemonInfo" aria-label="Details list"></ul>
+                    <ul class="list-group justify-content-center" id="pokemonInfo" aria-label="Details list"></ul>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close button">Close</button>

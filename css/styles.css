@@ -37,177 +37,24 @@
   }
 }
 
-  .pokemon-list {
-    list-style-type: none;
-    margin-left: 0;
-  }
 
-  .pokemon-button {
-    font-family: inherit;
-    font-size: 20px;
-    text-align: left;
-    color: #000;
-    height: 50px;
-    width: 500px;
-    margin: 5px;
-    padding-left: 20px;
-    background-color:#fdde77;
-    border-radius: 5px;
-    border-top: 0;
-    border-left: 0;
-    border-right: 2px solid #000;
-    border-bottom: 2px solid #000;
-  }
-
-  .pokemon-button:hover {
-    background-color: #ffc400;
-    font-weight: 600;
-  }
-
-/* ------------------- Modal Section ------------------- 
-#modal-container {
-  display: none;
-}
-
-#modal-container.is-visible {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 999;
-  overflow: auto;
-  position:fixed;
-  display: grid;
-  text-align: center;
-}
-
-.modal {
-  margin: auto;
-  display: inline-block;
-  box-sizing: border-box;
-  background: #fceeb2;
-  padding: 15px;
-  width: 100%;
-  max-width: 700px;
-  text-align: center;
-
-  
-}
-
-.close-modal-button{
-  /*border: 2px, solid, crimson;
-  float: right;
-  border: 0;
-  background: none;
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  font-weight:400;
-  color:#750017;
-}
-
-.title-img-container{
-  border: var(--debug-border);
-  display: grid;
-  clear:both;
-  grid-template-columns: 1fr 2fr 1fr;
-  height: auto;
-}
-
-.modal-title {
-  border: var(--debug-border);
-  display: inline;
-  color:#000;
-  font-family: inherit;
-}
-
-.modal-img {
-  border: var(--debug-border);
-  display: inline;
-  height: 115%;
-  width: 115%;
-  max-height: 125%;
-  max-width: 125%;
-
-}
-
-.modal-info-container {
-  display:block;
-  border: var(--debug-border);
-  column-gap: 10px;
-}
-
-.modal-info-table {
-  border-spacing: 10px;
-}
-
-.modal-info-stat {
-  border: var(--debug-border);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  text-align: right;
-  color:#000;
-}
-
-.modal-info-value {
-  border: var(--debug-border);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  text-align: left;
-  color:#000;
-}
-*/
 /* ---------------Responsive Design Section--------------- */
 
-/* For screens up to 500 pixel width (smart phones & tablets) */
-/*
-@media all and (max-width: 500px) {
-  .pokemon-button {
-    height: 40px;
-    width: 200px;
-    font-size: 16px;
-  }
+/* For screens up to 575 pixel width (smart phones & tablets) */
 
-  h1{
-    font-size: 28px;
-  }
+@media all and (max-width: 575px) {
 
-  .modal-title {
-    font-size: 26px;
-  }
 
-  .modal-img {
-    height:100%;
-    width:100%;
-  }
-}*/
+}
 
 
 /* For screens 500 to 750 pixel width */
-/*
+
 @media all and (min-width: 500px) and (max-width: 750px) {
-  .pokemon-button {
-    height: 45px;
-    width: 350px;
-    font-size: 18px;
-  }
 
-  h1{
-    font-size: 38px;
-  }
-
-  .modal-title {
-    font-size: 36px;
-  }
-}*/
+}
 
 /* For screens with 750+ pixel width */
-/*
 @media all and (min-width: 750px) {
-  .pokemon-button {
-    height: 50px;
-    width: 500px;
-  }
-}*/
+
+}
