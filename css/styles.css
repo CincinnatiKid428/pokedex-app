@@ -14,10 +14,6 @@
     margin-left: 10px;
   }
 
-  h1 {
-    font-size: 48px;
-  }
-
   .loading-message {
     font-size:inherit;
     animation: 1s loading-fade infinite alternate linear;
@@ -38,23 +34,18 @@
 }
 
 
-/* ---------------Responsive Design Section--------------- */
+/* ---------------Responsive Design Section (use for any customizations needed)--------------- */
 
 /* For screens up to 575 pixel width (smart phones & tablets) */
 
 @media all and (max-width: 575px) {
-
-
 }
 
+/* For screens 575 to 750 pixel width */
 
-/* For screens 500 to 750 pixel width */
-
-@media all and (min-width: 500px) and (max-width: 750px) {
-
+@media all and (min-width: 575px) and (max-width: 750px) {
 }
 
 /* For screens with 750+ pixel width */
 @media all and (min-width: 750px) {
-
 }

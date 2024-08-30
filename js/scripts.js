@@ -136,10 +136,7 @@ let pokemonRepository = (function(){
 
         // Add classes to list item
         listItem.classList.add('list-group-item');
-        listItem.classList.add('row');
-        //listItem.classList.add('border');
-        //listItem.classList.add('border-primary');
-        
+        listItem.classList.add('row');        
         
         // Create new <button> to be appended to the listItem
         let button = document.createElement('button');
