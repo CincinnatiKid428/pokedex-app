@@ -140,8 +140,7 @@ let pokemonRepository = (function(){
         
         // Create new <button> to be appended to the listItem
         let button = document.createElement('button');
-
-
+  
         // Capitalize first letter of Pokemon's name and set button innerText
         button.innerText = firstLetterCaps(pokemon.name);
 
@@ -176,25 +175,24 @@ let pokemonRepository = (function(){
     // Function will show details in a modal about pokemon argument
     function showDetails(pokemon){
 
-        //Load pokemon details
+        // DOM elements selected
+        let modalTitle = document.querySelector('.modal-title');
+        let modalInfo = document.querySelector('#pokemonInfo');
+        let modalFrontImg = $('#pokemonFrontImg');
+        let modalBackImg = $('#pokemonBackImg');
+
+        //Clear out any existing content from prior use of modal
+        modalTitle.innerText = "Loading...";
+        $('#pokemonInfo').empty();
+
+        //Reset images back to loading spinner GIF
+        modalFrontImg.attr('src', "img/loading-spinner-32x32.gif");
+        modalBackImg.attr('src', "img/loading-spinner-32x32.gif");
+
+        //Load pokemon details & prepare the modal with buttons and data from the Pokemon object argument
         loadDetails(pokemon).then(function(){
             console.log('pokemonRepository.showDetails()|'+JSON.stringify(pokemon));
         
-            // Prepare the modal with button and data from the Pokemon object argument
-
-            // DOM elements selected
-            let modalTitle = document.querySelector('.modal-title');
-            let modalInfo = document.querySelector('#pokemonInfo');
-            let modalFrontImg = $('#pokemonFrontImg');
-            let modalBackImg = $('#pokemonBackImg');
- 
-
-            //Clear out any existing content & images from prior use of modal
-            $('#pokemonInfo').empty();
-            modalFrontImg.attr('src', "#");
-            modalBackImg.attr('src', "#");
-
-
             //Title for modal with Pokemon name
             modalTitle.innerText = firstLetterCaps(pokemon.name);
 
