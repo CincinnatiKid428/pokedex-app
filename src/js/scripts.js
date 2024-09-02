@@ -128,8 +128,6 @@ let pokemonRepository = (function(){
     // Function to add a Pokemon item to the Pokemon unordered list as a new button with event listener
     function addListItem(pokemon) {
 
-        console.log('addListItem()| Trying to add '+pokemon.name);
-
         // Get the DOM node for the pokmeon list
         let elementPokemonList = document.querySelector('#list-for-pokemon');
 
@@ -193,7 +191,6 @@ let pokemonRepository = (function(){
 
         //Load pokemon details & prepare the modal with buttons and data from the Pokemon object argument
         loadDetails(pokemon).then(function(){
-            console.log('pokemonRepository.showDetails()|'+JSON.stringify(pokemon));
         
             //Title for modal with Pokemon name
             modalTitle.innerText = firstLetterCaps(pokemon.name);
