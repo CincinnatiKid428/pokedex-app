@@ -55,8 +55,9 @@ let pokemonRepository = (function(){
             hideLoadingMessage();
             
         }).catch(function(e) {
-            hideLoadingMessage();
             console.error(e);
+            alert('Error fetching data from '+apiUrl+' : '+e);
+            hideLoadingMessage();
         })
     } // end loadList()
 
@@ -86,6 +87,7 @@ let pokemonRepository = (function(){
         }).catch(function(e) {
             hideLoadingMessage();
             console.error('pokemonRepository.loadDetails()|ERROR|'+e);
+            alert('Error while loading Pokemon information :'+e)
         });
 
     } // end loadDetails()
@@ -370,4 +372,5 @@ pokemonRepository.loadList().then(function(){
         });
 }).catch(function(e) {
     console.error('Rejected promise on loadList()|'+e);
+    alert('Error loading data into list: '+e);
 });
