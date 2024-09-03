@@ -3,7 +3,7 @@ let pokemonRepository = (function(){
 
     //*Pokemon list array to hold Pokemon objects & URL of Pokemon API 
     let pokemonList = [];
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=200';
 
     // Loading message element
     let elementLoadingMessage = document.querySelector('.loading-message');
