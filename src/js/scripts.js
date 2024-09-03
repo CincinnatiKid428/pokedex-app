@@ -1,8 +1,6 @@
 // Create IIFE to declare the pokemonList[] and return access to functions 
 let pokemonRepository = (function(){
 
-    console.log('pokemonRepository|Starting IIFE');
-
     //*Pokemon list array to hold Pokemon objects & URL of Pokemon API 
     let pokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
@@ -23,19 +21,16 @@ let pokemonRepository = (function(){
 
     // Function to show the loading message
     function showLoadingMessage(){
-        console.log('pokemonRepository.showLoadingMessage()|Removing .hidden class to classlist of loading message element');
         elementLoadingMessage.classList.remove('hidden');
     }
 
     // Function to hide the loading message
     function hideLoadingMessage(){
-        console.log('pokemonRepository.hideLoadingMessage()|Adding .hidden class to classlist of loading message element');
         elementLoadingMessage.classList.add('hidden');
     }
 
     // Function to fetch a list of Pokemon from https://pokeapi.co/api/v2/pokemon/ 
     function loadList() {
-        console.log("pokemonRepository.loadList()| Called, fetching data from "+apiUrl);
         showLoadingMessage();
 
         return fetch(apiUrl).then(function(response){ //fetch returns a promise
@@ -77,8 +72,6 @@ let pokemonRepository = (function(){
             // Add the details from the resolved promise to the Pokemon item
             pokemon.imageFrontUrl = details.sprites.front_default;
             pokemon.imageBackUrl = details.sprites.back_default;
-            //pokemon.artworkFrontUrl = details.sprites.other.official-artwork.front_default; //Unable to pull this from API ??
-            //console.log("loadDetails()|Artwork image URL is : "+pokemon.artworkFrontUrl);
             pokemon.order = details.order;
             pokemon.height = details.height;
             pokemon.types = details.types;
@@ -105,7 +98,7 @@ let pokemonRepository = (function(){
 
                 if(Object.keys(item)[i] !== pokemonItemKeys[i]) {
 
-                    console.log('pokemonRepository.add()| Invalid key found: Object.keys(item)['+i+']!==pokemonItemKeys['+i+']: '+(Object.keys(item)[i] +'!=='+ pokemonItemKeys[i]));
+                    console.error('pokemonRepository.add()| Invalid key found: Object.keys(item)['+i+']!==pokemonItemKeys['+i+']: '+(Object.keys(item)[i] +'!=='+ pokemonItemKeys[i]));
                     keyCompareResult = false;
                     break;
 
@@ -114,12 +107,12 @@ let pokemonRepository = (function(){
             }//end-for
 
             // If keyCompareResult is still true, then we have proper pokemon object structure and add the item
-            //console.log('* pokemonRepository.add() | keyCompareResult: '+keyCompareResult);
 
             if(keyCompareResult) {
                 pokemonList.push(item);
             } else {
-                console.log('* pokemonRepository.add() | Invalid pokemon object format, cannot add to list!');
+                console.error('* pokemonRepository.add() | Invalid pokemon object format, cannot add to list!');
+                alert('Something went wrong loading the Pokemon data into list.');
             }
         }
     }// end add()
@@ -166,7 +159,6 @@ let pokemonRepository = (function(){
     // Function that will add event listener to a button created in addListItem()
     function addListenerToListItem(button, pokemon){
         button.addEventListener('click', function(event){
-            console.log('* Event handler | clicked '+pokemon.name+' button');
             showDetails(pokemon);
         });
     }// end addListerToListItem()
@@ -295,15 +287,14 @@ let pokemonRepository = (function(){
     function hideDetails(){
         let modalContainer = document.querySelector('#modal-container');
         modalContainer.classList.remove('is-visible');
-        console.log("hideDetails()| Modal should be hidden now");
     }// end hideDetails()
 
 
     // Function to use array filter() method to search for a Pokemon by name 
+    // NOTE: This function is not used by the application but was part of the building of the project
     function contains(pokemonName) {
 
         console.log ('* pokemonRepository.contains() | Function called to search for ' + pokemonName);
-
 
         // Initialize the filter() result array
         let isInListResult = [];
@@ -322,13 +313,11 @@ let pokemonRepository = (function(){
 
     // Function to return the pokemonList
     function getAll(){
-        //console.log('pokemonRepository.getAll()|Returning pokemonList with length: '+pokemonList.length);
         return pokemonList;
     }
 
 //Event listener for Escape key to close a modal window
 window.addEventListener('keydown',(e)=> {
-    console.log('Escape key pressed')
     let modalContainer = document.querySelector('#modal-container');
     if(e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
         hideDetails();
@@ -340,7 +329,7 @@ window.addEventListener('keydown',(e)=> {
         loadDetails()
         add()
         addListItem()
-        contains()
+        contains() --not used
         getAll()
 
      addListenerToListItem() & showDetails() will be used from within IIFE scope 
@@ -360,7 +349,6 @@ window.addEventListener('keydown',(e)=> {
 
 // Load the Pokemon list
 pokemonRepository.loadList().then(function(){
-    console.log('Resolved promise on loadList()|Data should be loaded. Size of loaded pokemon list should be 20: '+pokemonRepository.getAll().length);
     
     // forEach Pokemon in the pokemonList array ...
     pokemonRepository.getAll().forEach(function(pokemon) {
