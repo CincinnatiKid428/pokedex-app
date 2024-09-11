@@ -5,26 +5,22 @@ let pokemonRepository = (function(){
     let pokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=200';
 
-    // Loading message element
     let elementLoadingMessage = document.querySelector('.loading-message');
     
     // Array of keys to use to compare to objects added in add() to ensure proper type
     let pokemonItemKeys = ['name', 'detailsUrl'];
 
 
-    // Function to capitalize first letter of string name
     function firstLetterCaps(name) {
         let firstLetter = name.charAt(0).toUpperCase(); 
         let restOfName = name.slice(1);
         return firstLetter + restOfName;
     }
 
-    // Function to show the loading message
     function showLoadingMessage(){
         elementLoadingMessage.classList.remove('hidden');
     }
 
-    // Function to hide the loading message
     function hideLoadingMessage(){
         elementLoadingMessage.classList.add('hidden');
     }
@@ -54,7 +50,7 @@ let pokemonRepository = (function(){
             alert('Error fetching data from '+apiUrl+' : '+e);
             hideLoadingMessage();
         })
-    } // end loadList()
+    }
 
 
     // Function to fetch details about single/list? of Pokemon
@@ -83,7 +79,7 @@ let pokemonRepository = (function(){
             alert('Error while loading Pokemon information :'+e)
         });
 
-    } // end loadDetails()
+    }
 
 
     // Function to add a Pokemon to the end of the list
@@ -101,10 +97,8 @@ let pokemonRepository = (function(){
                     console.error('pokemonRepository.add()| Invalid key found: Object.keys(item)['+i+']!==pokemonItemKeys['+i+']: '+(Object.keys(item)[i] +'!=='+ pokemonItemKeys[i]));
                     keyCompareResult = false;
                     break;
-
-                }//end-if
-
-            }//end-for
+                }
+            }
 
             // If keyCompareResult is still true, then we have proper pokemon object structure and add the item
 
@@ -115,30 +109,21 @@ let pokemonRepository = (function(){
                 alert('Something went wrong loading the Pokemon data into list.');
             }
         }
-    }// end add()
+    }
 
 
     // Function to add a Pokemon item to the Pokemon unordered list as a new button with event listener
     function addListItem(pokemon) {
 
-        // Get the DOM node for the pokmeon list
+
         let elementPokemonList = document.querySelector('#list-for-pokemon');
-
-        // Create new <li> to be appended to the elementPokemonList
         let listItem = document.createElement('li');
-
-        // Add classes to list item
         listItem.classList.add('list-group-item');
         listItem.classList.add('border-0');
         listItem.classList.add('row');        
         
-        // Create new <button> to be appended to the listItem
         let button = document.createElement('button');
-  
-        // Capitalize first letter of Pokemon's name and set button innerText
         button.innerText = firstLetterCaps(pokemon.name);
-
-        // Add classes to the new button
         button.classList.add('btn');
         button.classList.add('btn-outline-dark');
         button.classList.add('col-8');
@@ -148,13 +133,12 @@ let pokemonRepository = (function(){
         button.setAttribute("data-toggle","modal");
         button.setAttribute("data-target","#pokemonModal");
 
-        // Append button to <li>, then append the <li> to the <ul>
         listItem.appendChild(button);
         elementPokemonList.appendChild(listItem);
 
         // Add event listener to button that will make call to showDetails()
         addListenerToListItem(button, pokemon);
-    }// end addListItem()
+    }
 
 
     // Function that will add event listener to a button created in addListItem()
@@ -162,7 +146,7 @@ let pokemonRepository = (function(){
         button.addEventListener('click', function(event){
             showDetails(pokemon);
         });
-    }// end addListerToListItem()
+    }
 
 
     // Function will show details in a modal about pokemon argument
@@ -279,16 +263,14 @@ let pokemonRepository = (function(){
 
         //--New info would be added here--//
 
-        }); //then()
+        });
+    }
 
-    }// end showDetails()
 
-
-    //Function will hide modal with Pokemon details
     function hideDetails(){
         let modalContainer = document.querySelector('#modal-container');
         modalContainer.classList.remove('is-visible');
-    }// end hideDetails()
+    }
 
 
     // Function to use array filter() method to search for a Pokemon by name 
@@ -312,11 +294,11 @@ let pokemonRepository = (function(){
     }// end contains()
 
 
-    // Function to return the pokemonList
     function getAll(){
         return pokemonList;
     }
 
+    
 //Event listener for Escape key to close a modal window
 window.addEventListener('keydown',(e)=> {
     let modalContainer = document.querySelector('#modal-container');
