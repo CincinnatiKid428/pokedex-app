@@ -8,7 +8,7 @@ jQuery was used for DOM manipulation in the modal window, specifically with rega
 The Bootstrap framework was used to help create the navbar, list groups and the modal window for this application.  As the first framework I worked with, it was a learning curve to see how the components worked and with specific structure.  It proved to help build the components much quicker, but I also found customizations more challenging as there are many CSS classes that may need to be overridden to achieve a certain styling.  I took advantage of ChatGPT to help identify ways to override the Bootstrap CSS for the modal window and allow for centering the title (which is aligned to the left by default).
  
 ## How to Use the Application
-Once running live on a web server, navigate to the index.html page and upon loading you should be presented with a screen similar to this:
+Simply clone this repository and host it someplace (gh-pages, Vercel, etc).  Once running live on a web server, navigate to the index.html page and upon loading you should be presented with a screen similar to this:
 
 ![Screenshot of large size screen displaying loaded index.html](/readme-img/app-lg-screen.jpg)
  
@@ -41,3 +41,4 @@ The title will display the name of the Pokemon, followed by a front/back sprite 
 - Bootstrap (CDN found in index.html):
 
   `<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>`
+
